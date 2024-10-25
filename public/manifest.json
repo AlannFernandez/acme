@@ -4,6 +4,7 @@
   "start_url":"/",
   "manifest_version": 3,
   "name": "Acme",
+  "short_name": "Acme",
   "version": "1.0.0",
   "description": "Software de gestión comercial",
   "icons": [
