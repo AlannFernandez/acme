@@ -2,7 +2,7 @@
 import * as XLSX from "xlsx";
 
 // Actualmente espera un objeto con la propiedad 'data', lo cambiamos para aceptar directamente un array
-export function DownloadExcelService(data: any[]) {
+export function DownloadExcelService(data: []) {
     console.log("hoa{");
     
     const worksheet = XLSX.utils.json_to_sheet(data);

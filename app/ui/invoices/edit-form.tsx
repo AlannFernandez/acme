@@ -1,5 +1,5 @@
 "use client";
-
+/* eslint-disable */
 import { CustomerField, InvoiceForm } from "@/app/lib/definitions";
 import {
   CheckIcon,

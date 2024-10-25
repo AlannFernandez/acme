@@ -1,3 +1,6 @@
+
+/* eslint-disable */
+
 import { sql } from '@vercel/postgres';
 import {
   CustomerField,
@@ -253,6 +256,7 @@ export function fetchSales(
   currentPage: number,
 ) {
   const offset = (currentPage - 1) * ITEMS_PER_PAGE;
+  
 
   return [
     {
