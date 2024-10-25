@@ -7,8 +7,10 @@ export const metadata: Metadata = {
     template: '%s | Acme',
     default: 'Acme',
   },
-  description: 'The official Next.js Learn Dashboard built with App Router.',
+  description: 'Software de gestión comercial',
   metadataBase: new URL('https://next-learn-dashboard.vercel.sh'),
+  manifest: '/manifest.json',
+ 
 };
 export default function RootLayout({
   children,
@@ -16,7 +18,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="en">
+    <html lang="es">
         <body className={`${inter.className} antialiased`}>{children}</body>
     </html>
   );
