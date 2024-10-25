@@ -1,0 +1,16 @@
+{
+  "display":"standalone",
+  "scope":"/",
+  "start_url":"/",
+  "manifest_version": 3,
+  "name": "Acme",
+  "version": "1.0.0",
+  "description": "Software de gestión comercial",
+  "icons": [
+    {
+      "src": "icon.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    }
+  ]
+}
