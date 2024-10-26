@@ -9,6 +9,8 @@ import {
   InvoicesTable,
   LatestInvoiceRaw,
   Revenue,
+  ProductsTable
+  
 } from './definitions';
 import { formatCurrency } from './utils';
 
@@ -121,6 +123,33 @@ export async function fetchFilteredInvoices(
     throw new Error('Failed to fetch invoices.');
   }
 }
+const simulatedProducts = [
+  { id: 'e1e8b1a4-d0c8-4d98-a2f5-0b1e5c911e68', name: 'Detergente Limon Multi 1,4 Lt Magistral Deterg / Lavavajilla', price: 9024, stock: 100, codeBar: '7890123456789' },
+  { id: '4c9347b6-69d4-4b95-a501-5faee2f2c693', name: 'Fideos Tallarín Don Vicente 500g', price: 2007, stock: 50, codeBar: '3456789012345' },
+  { id: 'c60fbd62-1946-48d2-8723-6c1dcd6e3671', name: 'Leche Cindor chocolatada 1L cacao serenisima s/tacc', price: 3916, stock: 50, codeBar: '6789012345678' },
+  { id: '9f5c1fbb-7926-4f2b-bdad-6c5e928a03d1', name: 'Cañuelas aceite girasol botellon 5 litros', price: 11199, stock: 5, codeBar: '9876543210987' },
+  { id: 'a77cb0a3-7e05-47b8-9e0b-4b3b8e5ed34f', name: 'Cerveza Imperial Extra Lager Lata 473ml', price: 8424, stock: 15, codeBar: '1357913579135' },
+  { id: 'f6e5b1f7-a5b1-4c3b-b18a-b9f8f44ea658', name: 'Galletas de Manteca', price: 500, stock: 100, codeBar: '9876543210123' },
+  { id: 'b8c0f3a4-8234-4c3c-9d48-cd891ef36a79', name: 'Chocolate amargo', price: 1200, stock: 20, codeBar: '0123456789012' },
+  { id: '3e9a4e53-3ab8-4a2d-bb78-56d54289b95d', name: 'Agua mineral 1.5L', price:1500, stock: 80, codeBar: '2345678901234' },
+];
+
+export async function fetchFilteredProducts(query: string, currentPage: number) {
+  const offset = (currentPage - 1) * ITEMS_PER_PAGE;
+
+  // Filtrar los productos simulados
+  const filteredProducts = simulatedProducts.filter(product => {
+    return (
+      product.name.toLowerCase().includes(query.toLowerCase()) ||      
+      product.codeBar.includes(query)
+    );
+  });
+
+  // Aplicar la paginación
+  const paginatedProducts = filteredProducts.slice(offset, offset + ITEMS_PER_PAGE);
+
+  return paginatedProducts; // Devuelve los productos filtrados y paginados
+}
 
 export async function fetchInvoicesPages(query: string) {
   try {
@@ -140,6 +169,24 @@ export async function fetchInvoicesPages(query: string) {
   } catch (error) {
     console.error('Database Error:', error);
     throw new Error('Failed to fetch total number of invoices.');
+  }
+}
+
+export async function fetchProductsPages(query: string) {
+  try {
+    const count = await sql`SELECT COUNT(*)
+    FROM products    
+    WHERE
+      products.name ILIKE ${`%${query}%`} OR
+      products.codebar ILIKE ${`%${query}%`} OR
+      products.price::text ILIKE ${`%${query}%`}    
+  `;
+
+    const totalPages = Math.ceil(Number(count.rows[0].count) / ITEMS_PER_PAGE);
+    return totalPages;
+  } catch (error) {
+    console.error('Database Error:', error);
+    throw new Error('Failed to fetch total number of products.');
   }
 }
 
@@ -167,6 +214,8 @@ export async function fetchInvoiceById(id: string) {
     throw new Error('Failed to fetch invoice.');
   }
 }
+
+
 
 export async function fetchCustomers() {
   try {

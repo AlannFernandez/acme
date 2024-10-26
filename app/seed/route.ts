@@ -1,6 +1,6 @@
 import bcrypt from 'bcrypt';
 import { db } from '@vercel/postgres';
-import { invoices, customers, revenue, users } from '../lib/placeholder-data';
+import { invoices, customers, revenue, users, products, sales } from '../lib/placeholder-data';
 
 const client = await db.connect();
 
@@ -101,17 +101,69 @@ async function seedRevenue() {
   return insertedRevenue;
 }
 
+async function seedProducts() {
+  await client.sql`CREATE EXTENSION IF NOT EXISTS "uuid-ossp"`;
+
+  await client.sql`
+    CREATE TABLE IF NOT EXISTS products (
+      id UUID DEFAULT uuid_generate_v4() PRIMARY KEY,
+      name VARCHAR(255) NOT NULL,
+      price DECIMAL(10, 2) NOT NULL,
+      stock INT NOT NULL,
+      codeBar VARCHAR(255) NOT NULL UNIQUE
+    );
+  `;
+
+  const insertedProducts = await Promise.all(
+    products.map(
+      (product) => client.sql`
+        INSERT INTO products (id, name, price, stock, codeBar)
+        VALUES (${product.id}, ${product.name}, ${product.price}, ${product.stock}, ${product.codeBar})
+        ON CONFLICT (id) DO NOTHING;
+      `,
+    ),
+  );
+
+  return insertedProducts;
+}
+
+async function seedSales() {
+  await client.sql`CREATE EXTENSION IF NOT EXISTS "uuid-ossp"`;
+
+  await client.sql`
+    CREATE TABLE IF NOT EXISTS sales (
+      id UUID DEFAULT uuid_generate_v4() PRIMARY KEY,
+      value VARCHAR(255) NOT NULL,
+      date DATE NOT NULL,
+      payment_method VARCHAR(255) NOT NULL,
+      client_id INT NOT NULL,
+      seller VARCHAR(255) NOT NULL,
+      shop_id VARCHAR(255) NOT NULL
+    );
+  `;
+
+  const insertedSales = await Promise.all(
+    sales.map(
+      (sale) => client.sql`
+        INSERT INTO sales (id, value, date, payment_method, client_id, seller, shop_id)
+        VALUES (${sale.id}, ${sale.value}, ${sale.date}, ${sale.payment_method}, ${sale.client_id}, ${sale.seller}, ${sale.shop_id})
+        ON CONFLICT (id) DO NOTHING;
+      `,
+    ),
+  );
+
+  return insertedSales;
+}
+
 export async function GET() {
-  // return Response.json({
-  //   message:
-  //     'Uncomment this file and remove this line. You can delete this file when you are finished.',
-  // });
   try {
     await client.sql`BEGIN`;
     await seedUsers();
     await seedCustomers();
     await seedInvoices();
     await seedRevenue();
+    await seedProducts();  // Nueva tabla de productos
+    await seedSales();     // Nueva tabla de ventas
     await client.sql`COMMIT`;
 
     return Response.json({ message: 'Database seeded successfully' });

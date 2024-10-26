@@ -2,9 +2,21 @@
 // https://nextjs.org/learn/dashboard-app/fetching-data
 const users = [
   {
-    id: '410544b2-4001-4271-9855-fec4b6a6442a',
+    id: '410544b2-4001-4271-9855-fec4b6a6441a',
     name: 'User',
-    email: 'user@nextmail.com',
+    email: 'admin@nextmail.com',
+    password: '123456',
+  },
+  {
+    id: '410544b2-4001-4271-9855-fec4b6a6443a',
+    name: 'Comercio 1',
+    email: 'local1@nextmail.com',
+    password: '123456',
+  },
+  {
+    id: '410544b2-4001-4271-9855-fec4b6a6443b',
+    name: 'Comercio 2',
+    email: 'local2@nextmail.com',
     password: '123456',
   },
 ];
@@ -130,18 +142,78 @@ const invoices = [
 ];
 
 const revenue = [
-  { month: 'Jan', revenue: 2000 },
+  { month: 'Ene', revenue: 2000 },
   { month: 'Feb', revenue: 1800 },
   { month: 'Mar', revenue: 2200 },
-  { month: 'Apr', revenue: 2500 },
+  { month: 'Abr', revenue: 2500 },
   { month: 'May', revenue: 2300 },
   { month: 'Jun', revenue: 3200 },
   { month: 'Jul', revenue: 3500 },
-  { month: 'Aug', revenue: 3700 },
+  { month: 'Ago', revenue: 3700 },
   { month: 'Sep', revenue: 2500 },
   { month: 'Oct', revenue: 2800 },
   { month: 'Nov', revenue: 3000 },
-  { month: 'Dec', revenue: 4800 },
+  { month: 'Dic', revenue: 4800 },
 ];
 
-export { users, customers, invoices, revenue };
+
+const products = [
+  {id: 'e1e8b1a4-d0c8-4d98-a2f5-0b1e5c911e68', name: 'Detergente Limon Multi 1,4 Lt Magistral Deterg / Lavavajilla', price: '9024', stock: 100 , codeBar: "7890123456789"},
+  {id: '4c9347b6-69d4-4b95-a501-5faee2f2c693', name: 'Fideos Tallarín Don Vicente 500g', price: '2007', stock: 50 , codeBar: "3456789012345"},
+  {id: 'c60fbd62-1946-48d2-8723-6c1dcd6e3671', name: 'Leche Cindor chocolatada 1L cacao serenisima s/tacc', price: '3916', stock: 50 , codeBar: "6789012345678"},
+  {id: '9f5c1fbb-7926-4f2b-bdad-6c5e928a03d1', name: 'Cañuelas aceite girasol botellon 5 litros', price: '11199', stock: 5 , codeBar: "9876543210987"},
+  {id: 'a77cb0a3-7e05-47b8-9e0b-4b3b8e5ed34f', name: 'Cerveza Imperial Extra Lager Lata 473ml', price: '8424', stock: 15 , codeBar: "1357913579135"},
+];
+
+
+
+const sales = [
+  {
+    id: '2a07a7f5-1d59-4df6-9d9a-07a19305e49e',
+    value: "$779",
+    date: "2024-10-20",
+    payment_method: "Tarjeta de crédito",
+    client_id: '1234',
+    seller: "Juan Pérez",
+    shop_id: "Comercio 1"
+  },
+  {
+    id: 'fc5f9a0c-9bce-4695-9e4e-e8e528db7a93',
+    value: "$2910",
+    date: "2024-10-19",
+    payment_method: "Efectivo",
+    client_id: '5678',
+    seller: "María García",
+    shop_id: "Comercio 1"
+  },
+  {
+    id: 'c82e6f15-4071-48c4-b688-82c55dbf8d86',
+    value: "$3900",
+    date: "2024-10-18",
+    payment_method: "Débito",
+    client_id: '91011',
+    seller: "Carlos López",
+    shop_id: "Comercio 2"
+  },
+  {
+    id: '0f0db7e2-2c68-43ec-922e-e56c2f6ecbba',
+    value: "$2300",
+    date: "2024-10-17",
+    payment_method: "Mercado Pago",
+    client_id: '121314',
+    seller: "Andrea Martínez",
+    shop_id: "Comercio 1"
+  },
+  {
+    id: 'd8073d53-bb6d-4665-bf84-6c6881a2d37c',
+    value: "$3450",
+    date: "2024-10-16",
+    payment_method: "Tarjeta de débito",
+    client_id: '151617',
+    seller: "Lucía Gómez",
+    shop_id: "Comercio 2"
+  }
+];
+
+
+export { users, customers, invoices, revenue , products, sales};
