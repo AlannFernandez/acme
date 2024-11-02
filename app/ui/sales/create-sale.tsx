@@ -22,7 +22,7 @@ interface Sale {
 const SalesDetailTable: React.FC = () => {
   const [cashPaid, setCashPaid] = useState<string>('');
   const [change, setChange] = useState<number | null>(null);
-  const [products, setProducts] = useState<Product[]>([
+  const [products,] = useState<Product[]>([
     { id: 'e1e8b1a4-d0c8-4d98-a2f5-0b1e5c911e68', name: 'Detergente Limon Multi 1,4 Lt', price: 9024, codeBar: "7890123456789", stock: 100 },
     { id: '4c9347b6-69d4-4b95-a501-5faee2f2c693', name: 'Fideos Tallarín Don Vicente 500g', price: 2007, codeBar: "3456789012345", stock: 50 },
     { id: 'c60fbd62-1946-48d2-8723-6c1dcd6e3671', name: 'Leche Cindor chocolatada 1L', price: 3916, codeBar: "6789012345678", stock: 50 },

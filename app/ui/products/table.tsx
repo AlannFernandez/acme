@@ -1,7 +1,7 @@
 
 import { UpdateInvoice, DeleteInvoice } from '@/app/ui/invoices/buttons';
 
-import { formatDateToLocal, formatCurrency } from '@/app/lib/utils';
+import {  formatCurrency } from '@/app/lib/utils';
 import { fetchFilteredProducts} from '@/app/lib/data';
 
 export default async function ProductsTable({

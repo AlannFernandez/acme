@@ -2,9 +2,7 @@
 
 import { CategoryField } from '@/app/lib/definitions';
 import Link from 'next/link';
-import {
-  CheckIcon,
-  ClockIcon,
+import {  
   CurrencyDollarIcon,
   UserCircleIcon,ClipboardDocumentListIcon, PencilIcon, QrCodeIcon
 } from '@heroicons/react/24/outline';
