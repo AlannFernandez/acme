@@ -3,34 +3,36 @@ import {
   UserGroupIcon,
   HomeIcon,
   DocumentDuplicateIcon,
-  ShoppingCartIcon,CurrencyDollarIcon, BuildingStorefrontIcon,
-  ListBulletIcon
+  ShoppingCartIcon,
+  CurrencyDollarIcon,
+  BuildingStorefrontIcon,
+  ListBulletIcon,
 } from '@heroicons/react/24/outline';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import clsx from 'clsx';
 
-// Map of links to display in the side navigation.
-// Depending on the size of the application, this would be stored in a database.
+// Map of links to display in the side navigation with roles.
 const links = [
-  { name: 'Inicio', href: '/dashboard', icon: HomeIcon },
-  {
-    name: 'Facturas',
-    href: '/dashboard/invoices',
-    icon: DocumentDuplicateIcon,
-  },
-  { name: 'Vendedores', href: '/dashboard/customers', icon: UserGroupIcon },
-  { name: 'Categorías', href: '/dashboard/categories', icon: ListBulletIcon },
-  { name: 'Productos', href: '/dashboard/products', icon: ShoppingCartIcon },
-  { name: 'Ventas', href: '/dashboard/sales', icon: CurrencyDollarIcon },
-  { name: 'Comercios', href: '/dashboard/stores', icon: BuildingStorefrontIcon },
+  { name: 'Inicio', href: '/dashboard', icon: HomeIcon, roles: ['User', 'vendedor'] },
+  { name: 'Facturas', href: '/dashboard/invoices', icon: DocumentDuplicateIcon, roles: ['User'] },
+  { name: 'Vendedores', href: '/dashboard/customers', icon: UserGroupIcon, roles: ['User'] },
+  { name: 'Categorías', href: '/dashboard/categories', icon: ListBulletIcon, roles: ['User'] },
+  { name: 'Productos', href: '/dashboard/products', icon: ShoppingCartIcon, roles: ['User'] },
+  { name: 'Ventas', href: '/dashboard/sales', icon: CurrencyDollarIcon, roles: ['User', 'Comercio 1' , 'Comercio 2'] },
+  { name: 'Comercios', href: '/dashboard/stores', icon: BuildingStorefrontIcon, roles: ['User'] },
 ];
 
-export default function NavLinks() {
+// Accept a role prop to determine what links to show
+export default function NavLinks({ role }: { role: string }) {
   const pathname = usePathname();
+
+  // Filter the links based on the user's role
+  const filteredLinks = links.filter((link) => link.roles.includes(role));
+
   return (
     <>
-      {links.map((link) => {
+      {filteredLinks.map((link) => {
         const LinkIcon = link.icon;
         return (
           <Link

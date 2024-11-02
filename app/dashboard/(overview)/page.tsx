@@ -13,7 +13,7 @@ import {
 import CardWrapper from '@/app/ui/dashboard/cards';
  
 export default async function Page() {
-  // Remove `const latestInvoices = await fetchLatestInvoices()`
+
  
   return (
     <main>
